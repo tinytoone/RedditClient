@@ -11,10 +11,11 @@ import Foundation
 protocol Post {
     var id: String { get }
     var title: String { get }
+    var author: String { get }
     var dateCreated: Date { get }
     var hidden: Bool { get }
     var thumbnailURL: URL? { get }
-    var commentsCount: Int? { get }
+    var commentsCount: Int { get }
     var originalImageURL: URL? { get }
 }
 
@@ -25,7 +26,7 @@ struct RedditPost: Post, Decodable {
     let dateCreated: Date
     let hidden: Bool
     let thumbnailURL: URL?
-    let commentsCount: Int?
+    let commentsCount: Int
     let originalImageURL: URL?
     private let preview: Preview?
 

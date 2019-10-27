@@ -19,19 +19,19 @@ struct GetTopRedditEndpoint: APIEndpoint {
     static let baseURLPath = "https://www.reddit.com"
 
     let limit: Int
-    let afterArticleId: String?
+    let afterPostId: String?
     
     let absoluteURLPath: String
     let relativeURLPath: String
     let url: URL
 
-    init(limit: Int, afterArticleId: String?) {
+    init(limit: Int, afterPostId: String?) {
         self.limit = limit
-        self.afterArticleId = afterArticleId
+        self.afterPostId = afterPostId
         
         var relativePath = "/top.json?limit=\(self.limit)"
-        if let afterArticleId = self.afterArticleId {
-            relativePath += relativePath + "&after=\(afterArticleId)"
+        if let afterPostId = self.afterPostId {
+            relativePath += relativePath + "&after=\(afterPostId)"
         }
         self.relativeURLPath = relativePath
         
