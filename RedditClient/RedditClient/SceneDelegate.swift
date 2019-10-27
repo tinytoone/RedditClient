@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         let postsListTableViewController = UIStoryboard(name: "PostsList", bundle: Bundle.main).instantiateViewController(identifier: "PostsListTableViewController") as! PostsListTableViewController
-        postsListTableViewController.viewModel = RedditPostsListViewModel(apiClient: RedditAPIClient())
+        postsListTableViewController.viewModel = RedditPostsListViewModel(apiClient: RedditAPIClient(), imageDownloader: RedditImageDownloader(urlCache: URLCache.shared))
         let navigationController = UINavigationController(rootViewController: postsListTableViewController)
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()

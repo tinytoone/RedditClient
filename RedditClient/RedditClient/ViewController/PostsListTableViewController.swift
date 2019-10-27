@@ -33,6 +33,14 @@ class PostsListTableViewController: UITableViewController {
                 self?.tableView.reloadData()
             }
         }
+        viewModel.postChangedAtIndex = { [weak self] index in
+            DispatchQueue.main.async {
+                let updatedIndexPath = IndexPath(row: index, section: 0)
+                if self?.tableView.indexPathsForVisibleRows?.contains(updatedIndexPath) == true {
+                    self?.tableView.reloadRows(at: [updatedIndexPath], with: .none)
+                }
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -53,7 +61,7 @@ class PostsListTableViewController: UITableViewController {
         cell.timeLabel.text = currentPost.time
         cell.titleLabel.text = currentPost.title
         cell.commentsLabel.text = currentPost.commentsCountText
-        cell.thumbnailImageView.image = currentPost.image
+        cell.thumbnailImageView.image = viewModel.getPostThumbnail(currentPost.id)
         return cell
     }
     

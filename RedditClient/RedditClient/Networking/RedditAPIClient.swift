@@ -19,16 +19,16 @@ enum APIClientError : Error {
 
 class RedditAPIClient: APIClient {
     
-    private var uberURLSession: URLSession!
-    private var uberURLConfiguration: URLSessionConfiguration!
+    private var redditURLSession: URLSession!
+    private var redditURLConfiguration: URLSessionConfiguration!
 
     init() {
-        uberURLConfiguration = .default
-        uberURLSession = URLSession(configuration: uberURLConfiguration)
+        redditURLConfiguration = .default
+        redditURLSession = URLSession(configuration: redditURLConfiguration)
     }
         
     func performRequest(endpoint: APIEndpoint, completion: @escaping (Data?, APIClientError?) -> ()) {
-        let dataTask = uberURLSession.dataTask(with: endpoint.url) { data, response, error in
+        let dataTask = redditURLSession.dataTask(with: endpoint.url) { data, response, error in
             if let data = data, let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode {
                 completion(data, nil)
             } else if (error as? URLError)?.code == .notConnectedToInternet {

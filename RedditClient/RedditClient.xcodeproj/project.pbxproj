@@ -27,6 +27,7 @@
 		1330FF2C2365D8C6009349E5 /* UIRefreshControl+RedditClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF2B2365D8C6009349E5 /* UIRefreshControl+RedditClient.swift */; };
 		1330FF342365F206009349E5 /* RedditPostsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF332365F206009349E5 /* RedditPostsListViewModel.swift */; };
 		1330FF372365F252009349E5 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF362365F252009349E5 /* PostTableViewCell.swift */; };
+		1330FF3923663050009349E5 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF3823663050009349E5 /* ImageDownloader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		1330FF2B2365D8C6009349E5 /* UIRefreshControl+RedditClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+RedditClient.swift"; sourceTree = "<group>"; };
 		1330FF332365F206009349E5 /* RedditPostsListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditPostsListViewModel.swift; sourceTree = "<group>"; };
 		1330FF362365F252009349E5 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		1330FF3823663050009349E5 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 			children = (
 				1330FF232365D707009349E5 /* RedditAPIClient.swift */,
 				1330FF242365D707009349E5 /* RedditAPIProvider.swift */,
+				1330FF3823663050009349E5 /* ImageDownloader.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				1330FEE22365B594009349E5 /* SceneDelegate.swift in Sources */,
 				1330FF292365D827009349E5 /* PostsListTableViewController.swift in Sources */,
 				1330FF1D2365CBC1009349E5 /* Post.swift in Sources */,
+				1330FF3923663050009349E5 /* ImageDownloader.swift in Sources */,
 				1330FF342365F206009349E5 /* RedditPostsListViewModel.swift in Sources */,
 				1330FF372365F252009349E5 /* PostTableViewCell.swift in Sources */,
 				1330FF2C2365D8C6009349E5 /* UIRefreshControl+RedditClient.swift in Sources */,
