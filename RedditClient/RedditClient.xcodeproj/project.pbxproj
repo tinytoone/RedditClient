@@ -15,6 +15,13 @@
 		1330FEEC2365B595009349E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1330FEEA2365B595009349E5 /* LaunchScreen.storyboard */; };
 		1330FEF72365B596009349E5 /* RedditClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FEF62365B596009349E5 /* RedditClientTests.swift */; };
 		1330FF022365B596009349E5 /* RedditClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF012365B596009349E5 /* RedditClientUITests.swift */; };
+		1330FF152365CBB3009349E5 /* TestRedditPostFull.json in Resources */ = {isa = PBXBuildFile; fileRef = 1330FF102365CBB3009349E5 /* TestRedditPostFull.json */; };
+		1330FF162365CBB3009349E5 /* TestRedditPostNoThumbnail.json in Resources */ = {isa = PBXBuildFile; fileRef = 1330FF112365CBB3009349E5 /* TestRedditPostNoThumbnail.json */; };
+		1330FF172365CBB3009349E5 /* TestRedditPostNoComments.json in Resources */ = {isa = PBXBuildFile; fileRef = 1330FF122365CBB3009349E5 /* TestRedditPostNoComments.json */; };
+		1330FF182365CBB3009349E5 /* TestRedditPostNoOriginalImage.json in Resources */ = {isa = PBXBuildFile; fileRef = 1330FF132365CBB3009349E5 /* TestRedditPostNoOriginalImage.json */; };
+		1330FF192365CBB3009349E5 /* TestRedditPostInvalid.json in Resources */ = {isa = PBXBuildFile; fileRef = 1330FF142365CBB3009349E5 /* TestRedditPostInvalid.json */; };
+		1330FF1D2365CBC1009349E5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF1B2365CBC1009349E5 /* Post.swift */; };
+		1330FF1E2365CBC1009349E5 /* PostsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF1C2365CBC1009349E5 /* PostsResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +56,13 @@
 		1330FEFD2365B596009349E5 /* RedditClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedditClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1330FF012365B596009349E5 /* RedditClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditClientUITests.swift; sourceTree = "<group>"; };
 		1330FF032365B596009349E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1330FF102365CBB3009349E5 /* TestRedditPostFull.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRedditPostFull.json; sourceTree = "<group>"; };
+		1330FF112365CBB3009349E5 /* TestRedditPostNoThumbnail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRedditPostNoThumbnail.json; sourceTree = "<group>"; };
+		1330FF122365CBB3009349E5 /* TestRedditPostNoComments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRedditPostNoComments.json; sourceTree = "<group>"; };
+		1330FF132365CBB3009349E5 /* TestRedditPostNoOriginalImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRedditPostNoOriginalImage.json; sourceTree = "<group>"; };
+		1330FF142365CBB3009349E5 /* TestRedditPostInvalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRedditPostInvalid.json; sourceTree = "<group>"; };
+		1330FF1B2365CBC1009349E5 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		1330FF1C2365CBC1009349E5 /* PostsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,10 +116,10 @@
 				1330FEDF2365B594009349E5 /* AppDelegate.swift */,
 				1330FEE12365B594009349E5 /* SceneDelegate.swift */,
 				1330FEE32365B594009349E5 /* ViewController.swift */,
-				1330FEE52365B594009349E5 /* Main.storyboard */,
-				1330FEE82365B595009349E5 /* Assets.xcassets */,
-				1330FEEA2365B595009349E5 /* LaunchScreen.storyboard */,
-				1330FEED2365B595009349E5 /* Info.plist */,
+				1330FF1A2365CBC1009349E5 /* Model */,
+				1330FF1F2365CBE4009349E5 /* UI */,
+				1330FF202365CC02009349E5 /* Resources */,
+				1330FF212365CC15009349E5 /* SupportingFiles */,
 			);
 			path = RedditClient;
 			sourceTree = "<group>";
@@ -115,6 +129,7 @@
 			children = (
 				1330FEF62365B596009349E5 /* RedditClientTests.swift */,
 				1330FEF82365B596009349E5 /* Info.plist */,
+				1330FF0F2365CBB2009349E5 /* TestJsons */,
 			);
 			path = RedditClientTests;
 			sourceTree = "<group>";
@@ -126,6 +141,52 @@
 				1330FF032365B596009349E5 /* Info.plist */,
 			);
 			path = RedditClientUITests;
+			sourceTree = "<group>";
+		};
+		1330FF0F2365CBB2009349E5 /* TestJsons */ = {
+			isa = PBXGroup;
+			children = (
+				1330FF102365CBB3009349E5 /* TestRedditPostFull.json */,
+				1330FF112365CBB3009349E5 /* TestRedditPostNoThumbnail.json */,
+				1330FF122365CBB3009349E5 /* TestRedditPostNoComments.json */,
+				1330FF132365CBB3009349E5 /* TestRedditPostNoOriginalImage.json */,
+				1330FF142365CBB3009349E5 /* TestRedditPostInvalid.json */,
+			);
+			path = TestJsons;
+			sourceTree = "<group>";
+		};
+		1330FF1A2365CBC1009349E5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1330FF1B2365CBC1009349E5 /* Post.swift */,
+				1330FF1C2365CBC1009349E5 /* PostsResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1330FF1F2365CBE4009349E5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1330FEE52365B594009349E5 /* Main.storyboard */,
+				1330FEEA2365B595009349E5 /* LaunchScreen.storyboard */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		1330FF202365CC02009349E5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1330FEE82365B595009349E5 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1330FF212365CC15009349E5 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				1330FEED2365B595009349E5 /* Info.plist */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +303,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1330FF192365CBB3009349E5 /* TestRedditPostInvalid.json in Resources */,
+				1330FF152365CBB3009349E5 /* TestRedditPostFull.json in Resources */,
+				1330FF182365CBB3009349E5 /* TestRedditPostNoOriginalImage.json in Resources */,
+				1330FF172365CBB3009349E5 /* TestRedditPostNoComments.json in Resources */,
+				1330FF162365CBB3009349E5 /* TestRedditPostNoThumbnail.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +327,9 @@
 			files = (
 				1330FEE42365B594009349E5 /* ViewController.swift in Sources */,
 				1330FEE02365B594009349E5 /* AppDelegate.swift in Sources */,
+				1330FF1E2365CBC1009349E5 /* PostsResponse.swift in Sources */,
 				1330FEE22365B594009349E5 /* SceneDelegate.swift in Sources */,
+				1330FF1D2365CBC1009349E5 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,7 +503,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RedditClient/Info.plist;
+				INFOPLIST_FILE = RedditClient/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -452,7 +520,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RedditClient/Info.plist;
+				INFOPLIST_FILE = RedditClient/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
