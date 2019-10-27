@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  UIRefreshControl.swift
 //  RedditClient
 //
 //  Created by Anton Voitsekhivskyi on 10/27/19.
