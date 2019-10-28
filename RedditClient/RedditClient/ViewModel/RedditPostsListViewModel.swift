@@ -12,7 +12,7 @@ import UIKit.UIImage
 protocol PostsListViewModel {
     var apiClient: APIClient { get }
     var imageDownloader: ImageDownloader { get }
-    var postsListChanged: ([PostDisplayItem]) -> () { get set }
+    var postsListAdded: ([PostDisplayItem], [Int]) -> () { get set }
     var postChangedAtIndex: (Int) -> () { get set }
     var postsDisplayItems: [PostDisplayItem] { get }
 
@@ -24,13 +24,9 @@ protocol PostsListViewModel {
 class RedditPostsListViewModel : PostsListViewModel {
     let apiClient: APIClient
     let imageDownloader: ImageDownloader
-    var postsListChanged: ([PostDisplayItem]) -> () = {_ in}
-    var postChangedAtIndex: (Int) -> () = {_ in}
-    private(set) var postsDisplayItems = [PostDisplayItem]() {
-        didSet {
-            postsListChanged(postsDisplayItems)
-        }
-    }
+    var postsListAdded: ([PostDisplayItem], [Int]) -> () = { _, _ in }
+    var postChangedAtIndex: (Int) -> () = { _ in }
+    private(set) var postsDisplayItems = [PostDisplayItem]()
 
     required init(apiClient: APIClient, imageDownloader: ImageDownloader) {
         self.apiClient = apiClient
@@ -56,10 +52,15 @@ class RedditPostsListViewModel : PostsListViewModel {
                 return
             }
             self.processChunk(recentPosts)
+            // Calculate indexes for new posts
+            let startIndex = self.posts.count
+            let endIndex = startIndex + recentPosts.count - 1
+            let addedIndexes = Array((startIndex...endIndex))
             self.posts = self.posts + recentPosts
-            self.postsDisplayItems = self.posts.map{ PostDisplayItem(post: $0) }
+            self.postsDisplayItems = self.postsDisplayItems + recentPosts.map{ PostDisplayItem(post: $0) }
             self.currentLastPostId = self.posts.last?.id
             self.postsListLoadIsInProgress = false
+            self.postsListAdded(self.postsDisplayItems, addedIndexes)
         }
     }
     

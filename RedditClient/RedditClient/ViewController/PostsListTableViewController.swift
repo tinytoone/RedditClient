@@ -28,16 +28,17 @@ class PostsListTableViewController: UITableViewController {
     }
     
     private func subscribeToViewModel() {
-        viewModel.postsListChanged = { [weak self] posts in
+        viewModel.postsListAdded = { [weak self] posts, indexes in
             DispatchQueue.main.async {
-                self?.tableView.reloadData()
+                let indexPaths = indexes.map { IndexPath(row: $0, section: 0) }
+                self?.tableView.insertRows(at: indexPaths, with: .fade)
             }
         }
         viewModel.postChangedAtIndex = { [weak self] index in
             DispatchQueue.main.async {
                 let updatedIndexPath = IndexPath(row: index, section: 0)
                 if self?.tableView.indexPathsForVisibleRows?.contains(updatedIndexPath) == true {
-                    self?.tableView.reloadRows(at: [updatedIndexPath], with: .none)
+                    self?.tableView.reloadRows(at: [updatedIndexPath], with: .fade)
                 }
             }
         }
