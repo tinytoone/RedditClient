@@ -22,6 +22,20 @@ class PostsListTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         reloadPostsListData()
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        // Maintaining Orientation Changes to adjust the scrolling position
+        super.viewWillTransition(to: size, with: coordinator)
+        self.topVisibleRowBeforeOrientationChangeIndexPath = tableView.indexPathsForVisibleRows?.first
+        coordinator.animate(alongsideTransition: nil) { (context) in
+            if let indexPath = self.topVisibleRowBeforeOrientationChangeIndexPath {
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                self.topVisibleRowBeforeOrientationChangeIndexPath = nil
+            }
+        }
+    }
+    
+    private var topVisibleRowBeforeOrientationChangeIndexPath: IndexPath?
     
     private func reloadPostsListData() {
         viewModel.getTopPosts()

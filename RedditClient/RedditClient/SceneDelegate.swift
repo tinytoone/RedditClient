@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let postsListTableViewController = UIStoryboard(name: "PostsList", bundle: Bundle.main).instantiateViewController(identifier: "PostsListTableViewController") as! PostsListTableViewController
         postsListTableViewController.viewModel = RedditPostsListViewModel(apiClient: RedditAPIClient(), imageDownloader: RedditImageDownloader(urlCache: URLCache.shared))
         let navigationController = UINavigationController(rootViewController: postsListTableViewController)
+        navigationController.navigationBar.isTranslucent = false
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }
