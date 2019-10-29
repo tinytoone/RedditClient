@@ -22,6 +22,14 @@ class FullImageViewController: UIViewController {
         viewModel.getImage()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        // Maintaining Orientation Changes to adjust image scale/zoom
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { (context) in
+            self.setupImage(image: self.imageView.image)
+        }
+    }
+    
     @IBOutlet private weak var imageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewTopConstraint: NSLayoutConstraint!
@@ -42,7 +50,7 @@ class FullImageViewController: UIViewController {
         }
     }
     
-    private func setupImage(image: UIImage) {
+    private func setupImage(image: UIImage?) {
         imageView.image = image
         view.layoutIfNeeded()
         setupScaling()
