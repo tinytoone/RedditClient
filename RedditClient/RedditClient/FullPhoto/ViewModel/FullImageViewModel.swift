@@ -9,7 +9,12 @@
 import Foundation
 import UIKit.UIImage
 
-protocol FullImageViewModel {
+protocol RestorableViewModel {
+    static func restoreFrom(userActivity: NSUserActivity) -> RestorableViewModel?
+    func continuationActivityParameters() -> [AnyHashable: Any]
+}
+
+protocol FullImageViewModel: RestorableViewModel {
     var imageDownloader: ImageDownloader { get }
     var wantsToShowUserImportantMessage: ((String, String) -> ())? { get set }
     var loadStatusChanged: ((Bool) -> ())? { get set }
@@ -24,6 +29,7 @@ protocol FullImageViewModel {
 }
 
 class RedditFullImageViewModel: NSObject, FullImageViewModel {
+
     let imageDownloader: ImageDownloader
     var wantsToShowUserImportantMessage: ((String, String) -> ())? = nil
     var loadStatusChanged: ((Bool) -> ())? = nil
@@ -71,7 +77,21 @@ class RedditFullImageViewModel: NSObject, FullImageViewModel {
         UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
+    // MARK: - Restorable View Model
+    static func restoreFrom(userActivity: NSUserActivity) -> RestorableViewModel? {
+        guard let imageURL = userActivity.userInfo?[RedditFullImageViewModel.imageURLRestoratioKey] as? URL else {
+            return nil
+        }
+        return RedditFullImageViewModel(imageURL: imageURL, imageDownloader: RedditImageDownloader())
+    }
+
+    func continuationActivityParameters() -> [AnyHashable: Any] {
+        return [RedditFullImageViewModel.imageURLRestoratioKey : imageURL]
+    }
+
+    // MARK: - Private
     private static let defaultImageName = "image-placeholder-full"
+    private static let imageURLRestoratioKey = "imageURL"
     private let imageURL: URL
 
     @objc private func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {

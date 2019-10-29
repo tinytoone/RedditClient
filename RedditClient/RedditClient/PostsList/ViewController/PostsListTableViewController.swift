@@ -86,7 +86,7 @@ class PostsListTableViewController: UITableViewController {
         guard viewModel.postsDisplayItems.count > index, let fullImageViewModel = viewModel.fullImageViewModel(viewModel.postsDisplayItems[index].id) else {
             return
         }
-        let fullImageViewController = UIStoryboard(name: "FullImage", bundle: Bundle.main).instantiateViewController(identifier: "FullImageViewController") as! FullImageViewController
+        let fullImageViewController = UIStoryboard(name: Constants.StoryboardId.FullImage, bundle: Bundle.main).instantiateInitialViewController() as! FullImageViewController
         fullImageViewController.viewModel = fullImageViewModel
         navigationController?.pushViewController(fullImageViewController, animated: true)
     }

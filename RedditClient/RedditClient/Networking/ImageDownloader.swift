@@ -21,7 +21,7 @@ class RedditImageDownloader: ImageDownloader {
     
     private(set) var urlCache: URLCache
     
-    required init(urlCache: URLCache) {
+    required init(urlCache: URLCache = URLCache.shared) {
         self.urlCache = urlCache
         imageDownloaderURLConfiguration = .default
         imageDownloaderURLSession = URLSession(configuration: imageDownloaderURLConfiguration)

@@ -12,8 +12,8 @@ import UIKit.UIImage
 protocol PostsListViewModel {
     var apiClient: APIClient { get }
     var imageDownloader: ImageDownloader { get }
-    var postsListAdded: ([PostDisplayItem], [Int]) -> () { get set }
-    var postChangedAtIndex: (Int) -> () { get set }
+    var postsListAdded: (([PostDisplayItem], [Int]) -> ())? { get set }
+    var postChangedAtIndex: ((Int) -> ())? { get set }
     var postsDisplayItems: [PostDisplayItem] { get }
 
     init(apiClient: APIClient, imageDownloader: ImageDownloader)
@@ -25,8 +25,8 @@ protocol PostsListViewModel {
 class RedditPostsListViewModel : PostsListViewModel {
     let apiClient: APIClient
     let imageDownloader: ImageDownloader
-    var postsListAdded: ([PostDisplayItem], [Int]) -> () = { _, _ in }
-    var postChangedAtIndex: (Int) -> () = { _ in }
+    var postsListAdded: (([PostDisplayItem], [Int]) -> ())? = nil
+    var postChangedAtIndex: ((Int) -> ())? = nil
     private(set) var postsDisplayItems = [PostDisplayItem]()
 
     required init(apiClient: APIClient, imageDownloader: ImageDownloader) {
@@ -61,7 +61,7 @@ class RedditPostsListViewModel : PostsListViewModel {
             self.postsDisplayItems = self.postsDisplayItems + recentPosts.map{ PostDisplayItem(post: $0) }
             self.currentLastPostId = self.posts.last?.id
             self.postsListLoadIsInProgress = false
-            self.postsListAdded(self.postsDisplayItems, addedIndexes)
+            self.postsListAdded?(self.postsDisplayItems, addedIndexes)
         }
     }
     
@@ -72,7 +72,7 @@ class RedditPostsListViewModel : PostsListViewModel {
         guard let cachedImage = imageDownloader.cachedImage(url: thumbnailURL!) else {
             imageDownloader.downloadImage(url: thumbnailURL!) { [weak self] image, url in
                 if let index = self?.thumbnailURLtoIndexMap[url] {
-                    self?.postChangedAtIndex(index)
+                    self?.postChangedAtIndex?(index)
                 }
             }
             return UIImage(named: RedditPostsListViewModel.defaultImageName)

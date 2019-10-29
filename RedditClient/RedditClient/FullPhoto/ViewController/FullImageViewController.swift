@@ -8,18 +8,22 @@
 
 import UIKit
 
+protocol RestorableViewController {
+    var continuationActivity: NSUserActivity? { get }
+}
+
 class FullImageViewController: UIViewController {
   
     var viewModel: FullImageViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        subscribeToViewModel()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveAction))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        subscribeToViewModel()
         setupImage(image: viewModel.currentImage)
         navigationItem.rightBarButtonItem?.isEnabled = viewModel.savingToPhotosEnabled
         viewModel.getImage()
@@ -32,7 +36,7 @@ class FullImageViewController: UIViewController {
             self.setupImage(image: self.imageView.image)
         }
     }
-    
+        
     @IBOutlet private weak var imageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewTopConstraint: NSLayoutConstraint!
@@ -98,7 +102,7 @@ class FullImageViewController: UIViewController {
 
         view.layoutIfNeeded()
     }
-    
+        
 }
 
 extension FullImageViewController: UIScrollViewDelegate {
@@ -111,4 +115,15 @@ extension FullImageViewController: UIScrollViewDelegate {
         return imageView
     }
   
+}
+
+extension FullImageViewController: RestorableViewController {
+    
+    var continuationActivity: NSUserActivity? {
+        let activity = NSUserActivity(activityType: Constants.StateRestoration.FullImageRestorationType)
+        activity.persistentIdentifier = Constants.StateRestoration.FullImageRestorationType
+        activity.addUserInfoEntries(from: viewModel.continuationActivityParameters())
+        return activity
+    }
+
 }

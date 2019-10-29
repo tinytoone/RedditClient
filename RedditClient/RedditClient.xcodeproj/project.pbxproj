@@ -31,6 +31,7 @@
 		1330FF3B23673934009349E5 /* FullImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1330FF3A23673934009349E5 /* FullImage.storyboard */; };
 		1330FF41236739F2009349E5 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF40236739F2009349E5 /* FullImageViewController.swift */; };
 		1330FF4623673FF1009349E5 /* FullImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF4523673FF1009349E5 /* FullImageViewModel.swift */; };
+		1383F7B5236892E60003ABEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1383F7B4236892E60003ABEF /* Constants.swift */; };
 		13B45A3B23683C56001181ED /* String+RedditClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B45A3A23683C56001181ED /* String+RedditClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		1330FF3A23673934009349E5 /* FullImage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FullImage.storyboard; sourceTree = "<group>"; };
 		1330FF40236739F2009349E5 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
 		1330FF4523673FF1009349E5 /* FullImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewModel.swift; sourceTree = "<group>"; };
+		1383F7B4236892E60003ABEF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		13B45A3A23683C56001181ED /* String+RedditClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RedditClient.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +137,7 @@
 			children = (
 				1330FEDF2365B594009349E5 /* AppDelegate.swift */,
 				1330FEE12365B594009349E5 /* SceneDelegate.swift */,
+				1383F7B4236892E60003ABEF /* Constants.swift */,
 				1330FF3D236739B3009349E5 /* FullPhoto */,
 				1330FF3C236739A7009349E5 /* PostsList */,
 				1330FF1A2365CBC1009349E5 /* Model */,
@@ -441,6 +444,7 @@
 				1330FF252365D707009349E5 /* RedditAPIClient.swift in Sources */,
 				1330FEE22365B594009349E5 /* SceneDelegate.swift in Sources */,
 				1330FF292365D827009349E5 /* PostsListTableViewController.swift in Sources */,
+				1383F7B5236892E60003ABEF /* Constants.swift in Sources */,
 				1330FF4623673FF1009349E5 /* FullImageViewModel.swift in Sources */,
 				1330FF41236739F2009349E5 /* FullImageViewController.swift in Sources */,
 				1330FF1D2365CBC1009349E5 /* Post.swift in Sources */,
@@ -625,6 +629,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S3HG9E95P7;
 				INFOPLIST_FILE = RedditClient/SupportingFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -643,6 +648,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S3HG9E95P7;
 				INFOPLIST_FILE = RedditClient/SupportingFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
