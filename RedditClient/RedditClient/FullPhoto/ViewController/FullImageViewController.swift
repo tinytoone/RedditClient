@@ -15,10 +15,13 @@ class FullImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribeToViewModel()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveAction))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupImage(image: viewModel.currentImage)
+        navigationItem.rightBarButtonItem?.isEnabled = viewModel.savingToPhotosEnabled
         viewModel.getImage()
     }
     
@@ -37,15 +40,32 @@ class FullImageViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet weak var loadingView: UIView!
+    
+    @objc private func saveAction() {
+        viewModel.saveCurrentImageToPhotos()
+    }
+    
     private func subscribeToViewModel() {
         viewModel.loadStatusChanged = { [weak self] isLoading in
             DispatchQueue.main.async {
                 self?.loadingView.isHidden = !isLoading
             }
         }
-        viewModel.imageUpdated = { [weak self] image in
+        viewModel.currentImageChanged = { [weak self] image in
             DispatchQueue.main.async {
                 self?.setupImage(image: image)
+            }
+        }
+        viewModel.savingToPhotosEnabledChanged = { [weak self] enabled in
+            DispatchQueue.main.async {
+                self?.navigationItem.rightBarButtonItem?.isEnabled = enabled
+            }
+        }
+        viewModel.wantsToShowUserImportantMessage = { [weak self] title, message in
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self?.present(alert, animated: true)
             }
         }
     }

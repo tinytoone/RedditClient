@@ -11,18 +11,38 @@ import UIKit.UIImage
 
 protocol FullImageViewModel {
     var imageDownloader: ImageDownloader { get }
-    var loadStatusChanged: (Bool) -> () { get set }
-    var imageUpdated: (UIImage) -> () { get set }
-    
+    var wantsToShowUserImportantMessage: ((String, String) -> ())? { get set }
+    var loadStatusChanged: ((Bool) -> ())? { get set }
+    var savingToPhotosEnabledChanged: ((Bool) -> ())? { get set }
+    var currentImageChanged: ((UIImage) -> ())? { get set }
+    var currentImage: UIImage? { get }
+    var savingToPhotosEnabled: Bool { get }
+
     init(imageURL: URL, imageDownloader: ImageDownloader)
     func getImage()
+    func saveCurrentImageToPhotos()
 }
 
-class RedditFullImageViewModel: FullImageViewModel {
+class RedditFullImageViewModel: NSObject, FullImageViewModel {
     let imageDownloader: ImageDownloader
-    var loadStatusChanged: (Bool) -> () = { _ in }
-    var imageUpdated: (UIImage) -> () = { _ in }
-    
+    var wantsToShowUserImportantMessage: ((String, String) -> ())? = nil
+    var loadStatusChanged: ((Bool) -> ())? = nil
+    var savingToPhotosEnabledChanged: ((Bool) -> ())? = nil
+    var currentImageChanged: ((UIImage) -> ())? = nil
+    private(set) var currentImage: UIImage? = nil {
+        didSet {
+            guard let currentImage = currentImage else {
+                return
+            }
+            currentImageChanged?(currentImage)
+        }
+    }
+    private(set) var savingToPhotosEnabled = false {
+        didSet {
+            savingToPhotosEnabledChanged?(savingToPhotosEnabled)
+        }
+    }
+
     required init(imageURL: URL, imageDownloader: ImageDownloader) {
         self.imageURL = imageURL
         self.imageDownloader = imageDownloader
@@ -30,18 +50,33 @@ class RedditFullImageViewModel: FullImageViewModel {
     
     func getImage() {
         guard let cachedImage = imageDownloader.cachedImage(url: imageURL) else {
-            loadStatusChanged(true)
-            imageDownloader.downloadImage(url: imageURL) { [weak self] image, url in
-                let imageToReturn = image ?? UIImage(named: RedditFullImageViewModel.defaultImageName)!
-                self?.imageUpdated(imageToReturn)
-                self?.loadStatusChanged(false)
+            loadStatusChanged?(true)
+            imageDownloader.downloadImage(url: imageURL) { [weak self] imageFromRemote, url in
+                let newImage = imageFromRemote ?? UIImage(named: RedditFullImageViewModel.defaultImageName)!
+                self?.currentImage = newImage
+                self?.currentImageChanged?(newImage)
+                self?.savingToPhotosEnabled = imageFromRemote != nil
+                self?.loadStatusChanged?(false)
             }
             return
         }
-        self.imageUpdated(cachedImage)
+        currentImage = cachedImage
+        savingToPhotosEnabled = true
+    }
+    
+    func saveCurrentImageToPhotos() {
+        guard savingToPhotosEnabled, let currentImage = self.currentImage else {
+            return
+        }
+        UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     private static let defaultImageName = "image-placeholder-full"
     private let imageURL: URL
 
+    @objc private func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+        let title = (error == nil) ? "Success" : "Error"
+        let message = (error == nil) ? "Your Reddit Image saved to Photos" : "Error"
+        wantsToShowUserImportantMessage?(title, message)
+    }
 }
