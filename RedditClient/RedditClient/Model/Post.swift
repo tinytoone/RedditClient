@@ -16,7 +16,7 @@ protocol Post {
     var hidden: Bool { get }
     var thumbnailURL: URL? { get }
     var commentsCount: Int { get }
-    var originalImageURL: URL? { get }
+    var fullImageURL: URL? { get }
 }
 
 struct RedditPost: Post, Decodable {
@@ -27,7 +27,7 @@ struct RedditPost: Post, Decodable {
     let hidden: Bool
     let thumbnailURL: URL?
     let commentsCount: Int
-    let originalImageURL: URL?
+    let fullImageURL: URL?
     private let preview: Preview?
 
     enum CodingKeys: String, CodingKey {
@@ -54,7 +54,7 @@ struct RedditPost: Post, Decodable {
         self.commentsCount = (try? dataContainer.decode(Int.self, forKey: .numComments)) ?? 0
         self.thumbnailURL = try? dataContainer.decode(URL.self, forKey: .thumbnail)
         self.preview = try? dataContainer.decode(Preview.self, forKey: .preview)
-        self.originalImageURL = preview?.images?.first?.source?.url // Pick first image as main post image
+        self.fullImageURL = preview?.images?.first?.source?.url // Pick first image as main post image
     }
 }
 
@@ -72,4 +72,14 @@ private struct Image: Codable {
 // MARK: Source
 private struct Source: Codable {
     let url: URL?
+    
+    enum CodingKeys: String, CodingKey {
+        case url
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let urlPath = try container.decode(String.self, forKey: .url)
+        self.url = URL(string: urlPath.removingXMLPercentEncoding())
+    }
 }

@@ -27,7 +27,7 @@ class RedditPostTests: XCTestCase {
         checkRequiredFields(redditPost: redditPost)
         XCTAssertEqual(redditPost?.thumbnailURL, URL(string: "https://b.thumbs.redditmedia.com/UA1U7O06n2X184An6FHWP1104-p8Au42sBIc7sr0EMQ.jpg"))
         XCTAssertEqual(redditPost?.commentsCount, 3)
-        XCTAssertEqual(redditPost?.originalImageURL, URL(string:"https://external-preview.redd.it/deG9vkSeXegIMWYTRu_sZxy6_PeAf_aLcetMbnwMJ4k.jpg?auto=webp&amp;s=c6e3fa61dc2af3f2e3bb1bebd6169b574b0b57b7"))
+        XCTAssertEqual(redditPost?.fullImageURL, URL(string:"https://external-preview.redd.it/deG9vkSeXegIMWYTRu_sZxy6_PeAf_aLcetMbnwMJ4k.jpg?auto=webp&amp;s=c6e3fa61dc2af3f2e3bb1bebd6169b574b0b57b7"))
     }
     
     func testDecodingInvalidJson() {
@@ -55,7 +55,7 @@ class RedditPostTests: XCTestCase {
         XCTAssertEqual(redditPost?.commentsCount, 0, "Zero count should be specified for comments count")
         checkRequiredFields(redditPost: redditPost)
         XCTAssertEqual(redditPost?.thumbnailURL, URL(string: "https://b.thumbs.redditmedia.com/UA1U7O06n2X184An6FHWP1104-p8Au42sBIc7sr0EMQ.jpg"))
-        XCTAssertEqual(redditPost?.originalImageURL, URL(string:"https://external-preview.redd.it/deG9vkSeXegIMWYTRu_sZxy6_PeAf_aLcetMbnwMJ4k.jpg?auto=webp&amp;s=c6e3fa61dc2af3f2e3bb1bebd6169b574b0b57b7"))
+        XCTAssertEqual(redditPost?.fullImageURL, URL(string:"https://external-preview.redd.it/deG9vkSeXegIMWYTRu_sZxy6_PeAf_aLcetMbnwMJ4k.jpg?auto=webp&amp;s=c6e3fa61dc2af3f2e3bb1bebd6169b574b0b57b7"))
     }
 
     func testDecodingNoThumbnailJson() {
@@ -70,7 +70,7 @@ class RedditPostTests: XCTestCase {
         checkRequiredFields(redditPost: redditPost)
         XCTAssertEqual(redditPost?.commentsCount, 3)
         XCTAssertNil(redditPost?.thumbnailURL)
-        XCTAssertEqual(redditPost?.originalImageURL, URL(string:"https://external-preview.redd.it/deG9vkSeXegIMWYTRu_sZxy6_PeAf_aLcetMbnwMJ4k.jpg?auto=webp&amp;s=c6e3fa61dc2af3f2e3bb1bebd6169b574b0b57b7"))
+        XCTAssertEqual(redditPost?.fullImageURL, URL(string:"https://external-preview.redd.it/deG9vkSeXegIMWYTRu_sZxy6_PeAf_aLcetMbnwMJ4k.jpg?auto=webp&amp;s=c6e3fa61dc2af3f2e3bb1bebd6169b574b0b57b7"))
     }
 
     func testDecodingNoOriginalImageJson() {
@@ -85,7 +85,7 @@ class RedditPostTests: XCTestCase {
         checkRequiredFields(redditPost: redditPost)
         XCTAssertEqual(redditPost?.commentsCount, 3)
         XCTAssertEqual(redditPost?.thumbnailURL, URL(string: "https://b.thumbs.redditmedia.com/UA1U7O06n2X184An6FHWP1104-p8Au42sBIc7sr0EMQ.jpg"))
-        XCTAssertNil(redditPost?.originalImageURL)
+        XCTAssertNil(redditPost?.fullImageURL)
     }
     
     // MARK: - Helpers
