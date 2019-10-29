@@ -18,8 +18,8 @@ class PostsListTableViewController: UITableViewController {
         subscribeToViewModel()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         reloadPostsListData()
     }
 
@@ -78,6 +78,17 @@ class PostsListTableViewController: UITableViewController {
         cell.commentsLabel.text = currentPost.commentsCountText
         cell.thumbnailImageView.image = viewModel.getPostThumbnail(currentPost.id)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let index = indexPath.row
+        guard viewModel.postsDisplayItems.count > index, let fullImageViewModel = viewModel.fullImageViewModel(viewModel.postsDisplayItems[index].id) else {
+            return
+        }
+        let fullImageViewController = UIStoryboard(name: "FullImage", bundle: Bundle.main).instantiateViewController(identifier: "FullImageViewController") as! FullImageViewController
+        fullImageViewController.viewModel = fullImageViewModel
+        navigationController?.pushViewController(fullImageViewController, animated: true)
     }
     
 }

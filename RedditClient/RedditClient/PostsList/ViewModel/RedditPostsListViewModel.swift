@@ -19,6 +19,7 @@ protocol PostsListViewModel {
     init(apiClient: APIClient, imageDownloader: ImageDownloader)
     func getTopPosts()
     func getPostThumbnail(_ postId: String) -> UIImage?
+    func fullImageViewModel(_ postId: String) -> FullImageViewModel?
 }
 
 class RedditPostsListViewModel : PostsListViewModel {
@@ -66,7 +67,7 @@ class RedditPostsListViewModel : PostsListViewModel {
     
     func getPostThumbnail(_ postId: String) -> UIImage? {
         guard let thumbnailURL = postIdtoThumbnailURLMap[postId] else {
-            return UIImage(named: PostDisplayItem.defaultImagePlaceholderName)
+            return UIImage(named: RedditPostsListViewModel.defaultImageName)
         }
         guard let cachedImage = imageDownloader.cachedImage(url: thumbnailURL!) else {
             imageDownloader.downloadImage(url: thumbnailURL!) { [weak self] image, url in
@@ -74,22 +75,33 @@ class RedditPostsListViewModel : PostsListViewModel {
                     self?.postChangedAtIndex(index)
                 }
             }
-            return UIImage(named: PostDisplayItem.defaultImagePlaceholderName)
+            return UIImage(named: RedditPostsListViewModel.defaultImageName)
         }
         return cachedImage
-     }
+    }
+    
+    func fullImageViewModel(_ postId: String) -> FullImageViewModel? {
+        guard let fullImageURL = postIdtoFullImageURLMap[postId] else {
+            return nil
+        }
+        return RedditFullImageViewModel(imageURL: fullImageURL!, imageDownloader: RedditImageDownloader(urlCache: URLCache.shared))
+    }
 
     private static let postsChunkLimit = 15
+    private static let defaultImageName = "image-placeholder"
+    
     private var posts = [Post]()
     private var currentLastPostId: String? = nil
     private var postsListLoadIsInProgress = false
     private var postIdtoThumbnailURLMap = [String : URL?]()
+    private var postIdtoFullImageURLMap = [String : URL?]()
     private var thumbnailURLtoIndexMap = [URL : Int]()
 
     // Calculate and prepare some cached values for a better performance
     private func processChunk(_ recentPosts: [Post]) {
         for (idx, post) in recentPosts.enumerated() {
             self.postIdtoThumbnailURLMap[post.id] = post.thumbnailURL
+            self.postIdtoFullImageURLMap[post.id] = post.fullImageURL
             if let thumbnailURL = post.thumbnailURL {
                 self.thumbnailURLtoIndexMap[thumbnailURL] = posts.count + idx
             }
@@ -98,7 +110,6 @@ class RedditPostsListViewModel : PostsListViewModel {
 }
 
 struct PostDisplayItem {
-    static let defaultImagePlaceholderName = "image-placeholder"
     let id: String
     let author: String
     let time: String
