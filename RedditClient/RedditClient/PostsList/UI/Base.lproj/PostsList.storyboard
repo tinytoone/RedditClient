@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="gRb-C8-fOv">
-                            <rect key="frame" x="0.0" y="256" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="356" width="414" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </view>
@@ -88,16 +88,34 @@
                                     <outlet property="titleLabel" destination="c3W-EG-Thj" id="Guv-Ba-H6g"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LoadCell" rowHeight="100" id="O22-AC-MT1" userLabel="LoadCell">
+                                <rect key="frame" x="0.0" y="228" width="414" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O22-AC-MT1" id="yi7-Eo-DFH">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="lQk-YF-FDi">
+                                            <rect key="frame" x="188.5" y="31.5" width="37" height="37"/>
+                                            <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="lQk-YF-FDi" secondAttribute="bottom" constant="31.5" id="4Xs-4G-Tva"/>
+                                        <constraint firstItem="lQk-YF-FDi" firstAttribute="top" secondItem="yi7-Eo-DFH" secondAttribute="top" constant="31.5" id="J3r-1U-J0z"/>
+                                        <constraint firstItem="lQk-YF-FDi" firstAttribute="centerY" secondItem="yi7-Eo-DFH" secondAttribute="centerY" id="QgS-zy-JIT"/>
+                                        <constraint firstItem="lQk-YF-FDi" firstAttribute="centerX" secondItem="yi7-Eo-DFH" secondAttribute="centerX" id="Ugo-Xd-xXc"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="0R5-mn-ZkK" id="mjn-gP-uZU"/>
                             <outlet property="delegate" destination="0R5-mn-ZkK" id="mt1-Sl-Cqw"/>
                         </connections>
                     </tableView>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="1EX-V0-jtb">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GRk-oq-bcr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -13,6 +13,7 @@ struct Constants {
     struct StoryboardId {
         static let PostsList = "PostsList"
         static let FullImage = "FullImage"
+        static let LoadCell = "LoadCell"
     }
 
     struct StateRestoration {

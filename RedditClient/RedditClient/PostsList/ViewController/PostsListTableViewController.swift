@@ -65,11 +65,26 @@ class PostsListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.postsDisplayItems.count
+        // Posts count + loading cell
+        return viewModel.postsDisplayItems.count + 1
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell!
+        if indexPath.row == viewModel.postsDisplayItems.count {
+            cell = loadingCell(indexPath: indexPath)
+        } else {
+            cell = postCell(indexPath: indexPath)
+        }
+        
+        return cell
+    }
+    
+    func loadingCell(indexPath: IndexPath) -> UITableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: Constants.StoryboardId.LoadCell, for: indexPath)
+    }
+    
+    func postCell(indexPath: IndexPath) -> PostTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.reuseIdentifier, for: indexPath) as! PostTableViewCell
         let currentPost = viewModel.postsDisplayItems[indexPath.row]
         cell.authorLabel.text = currentPost.author
@@ -97,7 +112,7 @@ class PostsListTableViewController: UITableViewController {
 extension PostsListTableViewController: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.last?.row == viewModel.postsDisplayItems.count - 1 {
+        if indexPaths.last?.row == viewModel.postsDisplayItems.count {
             viewModel.getTopPosts()
         }
     }
