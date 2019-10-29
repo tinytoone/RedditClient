@@ -18,7 +18,7 @@ class FullImageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveAction))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("FullImage.RightBarButtonItem", comment: ""), style: .plain, target: self, action: #selector(saveAction))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +68,7 @@ class FullImageViewController: UIViewController {
         viewModel.wantsToShowUserImportantMessage = { [weak self] title, message in
             DispatchQueue.main.async {
                 let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                alert.addAction(UIAlertAction(title: NSLocalizedString("General.OK", comment: ""), style: .default))
                 self?.present(alert, animated: true)
             }
         }

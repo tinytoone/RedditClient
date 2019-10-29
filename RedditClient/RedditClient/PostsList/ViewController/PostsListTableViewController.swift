@@ -76,6 +76,7 @@ class PostsListTableViewController: UITableViewController {
         cell.timeLabel.text = currentPost.time
         cell.titleLabel.text = currentPost.title
         cell.commentsLabel.text = currentPost.commentsCountText
+        cell.accessoryType = currentPost.canOpen ? .disclosureIndicator : .none
         cell.thumbnailImageView.image = viewModel.getPostThumbnail(currentPost.id)
         return cell
     }

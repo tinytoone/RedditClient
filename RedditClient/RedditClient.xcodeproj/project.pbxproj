@@ -32,6 +32,7 @@
 		1330FF41236739F2009349E5 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF40236739F2009349E5 /* FullImageViewController.swift */; };
 		1330FF4623673FF1009349E5 /* FullImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330FF4523673FF1009349E5 /* FullImageViewModel.swift */; };
 		1383F7B5236892E60003ABEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1383F7B4236892E60003ABEF /* Constants.swift */; };
+		1383F7B8236899D90003ABEF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1383F7BA236899D90003ABEF /* Localizable.strings */; };
 		13B45A3B23683C56001181ED /* String+RedditClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B45A3A23683C56001181ED /* String+RedditClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		1330FF40236739F2009349E5 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
 		1330FF4523673FF1009349E5 /* FullImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewModel.swift; sourceTree = "<group>"; };
 		1383F7B4236892E60003ABEF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1383F7B9236899D90003ABEF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		13B45A3A23683C56001181ED /* String+RedditClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RedditClient.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				1330FEEA2365B595009349E5 /* LaunchScreen.storyboard */,
+				1383F7BA236899D90003ABEF /* Localizable.strings */,
 				1330FEE82365B595009349E5 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -406,6 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1383F7B8236899D90003ABEF /* Localizable.strings in Resources */,
 				1330FEEC2365B595009349E5 /* LaunchScreen.storyboard in Resources */,
 				1330FF3B23673934009349E5 /* FullImage.storyboard in Resources */,
 				1330FEE92365B595009349E5 /* Assets.xcassets in Resources */,
@@ -503,6 +507,14 @@
 				1330FEEB2365B595009349E5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		1383F7BA236899D90003ABEF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1383F7B9236899D90003ABEF /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

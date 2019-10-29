@@ -55,8 +55,8 @@
                         <constraints>
                             <constraint firstItem="Ghc-HH-Rhk" firstAttribute="leading" secondItem="kTX-0c-yYz" secondAttribute="leading" id="Itb-Ef-QM0"/>
                             <constraint firstAttribute="trailing" secondItem="vPF-o7-uf4" secondAttribute="trailing" id="WfV-S3-NJ8"/>
-                            <constraint firstItem="1Jc-ri-Mb9" firstAttribute="top" secondItem="vPF-o7-uf4" secondAttribute="bottom" id="aRE-jA-Muw"/>
-                            <constraint firstItem="vPF-o7-uf4" firstAttribute="top" secondItem="tan-pN-iKT" secondAttribute="bottom" id="cUp-RM-ntH"/>
+                            <constraint firstItem="kTX-0c-yYz" firstAttribute="bottom" secondItem="vPF-o7-uf4" secondAttribute="bottom" id="aRE-jA-Muw"/>
+                            <constraint firstItem="vPF-o7-uf4" firstAttribute="top" secondItem="kTX-0c-yYz" secondAttribute="top" id="cUp-RM-ntH"/>
                             <constraint firstItem="Ghc-HH-Rhk" firstAttribute="top" secondItem="kTX-0c-yYz" secondAttribute="top" id="g4Y-Y4-e8d"/>
                             <constraint firstItem="kTX-0c-yYz" firstAttribute="bottom" secondItem="Ghc-HH-Rhk" secondAttribute="bottom" id="pmD-Uq-lLr"/>
                             <constraint firstItem="vPF-o7-uf4" firstAttribute="leading" secondItem="ore-49-s1D" secondAttribute="leading" id="xAF-vd-G2H"/>

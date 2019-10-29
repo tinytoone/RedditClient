@@ -69,8 +69,8 @@ class RedditPostsListViewModel : PostsListViewModel {
         guard let thumbnailURL = postIdtoThumbnailURLMap[postId] else {
             return UIImage(named: RedditPostsListViewModel.defaultImageName)
         }
-        guard let cachedImage = imageDownloader.cachedImage(url: thumbnailURL!) else {
-            imageDownloader.downloadImage(url: thumbnailURL!) { [weak self] image, url in
+        guard let cachedImage = imageDownloader.cachedImage(url: thumbnailURL) else {
+            imageDownloader.downloadImage(url: thumbnailURL) { [weak self] image, url in
                 if let index = self?.thumbnailURLtoIndexMap[url] {
                     self?.postChangedAtIndex?(index)
                 }
@@ -84,7 +84,7 @@ class RedditPostsListViewModel : PostsListViewModel {
         guard let fullImageURL = postIdtoFullImageURLMap[postId] else {
             return nil
         }
-        return RedditFullImageViewModel(imageURL: fullImageURL!, imageDownloader: RedditImageDownloader(urlCache: URLCache.shared))
+        return RedditFullImageViewModel(imageURL: fullImageURL, imageDownloader: RedditImageDownloader(urlCache: URLCache.shared))
     }
 
     private static let postsChunkLimit = 15
@@ -93,16 +93,18 @@ class RedditPostsListViewModel : PostsListViewModel {
     private var posts = [Post]()
     private var currentLastPostId: String? = nil
     private var postsListLoadIsInProgress = false
-    private var postIdtoThumbnailURLMap = [String : URL?]()
-    private var postIdtoFullImageURLMap = [String : URL?]()
+    private var postIdtoThumbnailURLMap = [String : URL]()
+    private var postIdtoFullImageURLMap = [String : URL]()
     private var thumbnailURLtoIndexMap = [URL : Int]()
 
     // Calculate and prepare some cached values for a better performance
     private func processChunk(_ recentPosts: [Post]) {
         for (idx, post) in recentPosts.enumerated() {
-            self.postIdtoThumbnailURLMap[post.id] = post.thumbnailURL
-            self.postIdtoFullImageURLMap[post.id] = post.fullImageURL
+            if let fullImageURL = post.fullImageURL {
+                self.postIdtoFullImageURLMap[post.id] = fullImageURL
+            }
             if let thumbnailURL = post.thumbnailURL {
+                self.postIdtoThumbnailURLMap[post.id] = thumbnailURL
                 self.thumbnailURLtoIndexMap[thumbnailURL] = posts.count + idx
             }
         }
@@ -115,17 +117,20 @@ struct PostDisplayItem {
     let time: String
     let title: String
     let commentsCountText: String
-    
+    let canOpen: Bool
+
     init(post: Post) {
         author = post.author
         if let diffInHours = Calendar.current.dateComponents([.hour], from: post.dateCreated, to: Date()).hour {
-            let concatenation = diffInHours > 1 ? "hours" : "hour"
-            time = "\(diffInHours) \(concatenation) ago"
+            let timeFormat = diffInHours > 1 ? NSLocalizedString("PostsList.TimeFormatPlural", comment: "") : NSLocalizedString("PostsList.TimeFormatSingular", comment: "")
+            time = String.localizedStringWithFormat(timeFormat, diffInHours)
         } else {
-            time = "? hours ago"
+            time = NSLocalizedString("PostsList.TimeUnknown", comment: "")
         }
         title = post.title
-        commentsCountText = "Comments: \(post.commentsCount)"
+        let commentsFormat = NSLocalizedString("PostsList.CommentsFormat", comment: "")
+        commentsCountText = String.localizedStringWithFormat(commentsFormat, post.commentsCount)
         id = post.id
+        canOpen = post.fullImageURL != nil
     }
 }

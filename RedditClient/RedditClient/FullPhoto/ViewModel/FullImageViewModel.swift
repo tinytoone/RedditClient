@@ -95,8 +95,8 @@ class RedditFullImageViewModel: NSObject, FullImageViewModel {
     private let imageURL: URL
 
     @objc private func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
-        let title = (error == nil) ? "Success" : "Error"
-        let message = (error == nil) ? "Your Reddit Image saved to Photos" : "Error"
+        let title = (error == nil) ? NSLocalizedString("General.Success", comment: "") : NSLocalizedString("General.Error", comment: "")
+        let message = (error == nil) ? NSLocalizedString("FullImage.SuccessAlertMessage", comment: "") : NSLocalizedString("FullImage.ErrorAlertMessage", comment: "")
         wantsToShowUserImportantMessage?(title, message)
     }
 }
