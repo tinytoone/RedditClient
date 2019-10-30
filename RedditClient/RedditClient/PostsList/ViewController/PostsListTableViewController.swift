@@ -66,12 +66,12 @@ class PostsListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Posts count + loading cell
-        return viewModel.postsDisplayItems.count + 1
+        return viewModel.postsDisplayItemsCount + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell!
-        if indexPath.row == viewModel.postsDisplayItems.count {
+        if indexPath.row == viewModel.postsDisplayItemsCount {
             cell = loadingCell(indexPath: indexPath)
         } else {
             cell = postCell(indexPath: indexPath)
@@ -86,20 +86,21 @@ class PostsListTableViewController: UITableViewController {
     
     func postCell(indexPath: IndexPath) -> PostTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.reuseIdentifier, for: indexPath) as! PostTableViewCell
-        let currentPost = viewModel.postsDisplayItems[indexPath.row]
-        cell.authorLabel.text = currentPost.author
-        cell.timeLabel.text = currentPost.time
-        cell.titleLabel.text = currentPost.title
-        cell.commentsLabel.text = currentPost.commentsCountText
-        cell.accessoryType = currentPost.canOpen ? .disclosureIndicator : .none
-        cell.thumbnailImageView.image = viewModel.getPostThumbnail(currentPost.id)
+        if let currentPost = viewModel.postDiplayItem(atIndex: indexPath.row) {
+            cell.authorLabel.text = currentPost.author
+            cell.timeLabel.text = currentPost.time
+            cell.titleLabel.text = currentPost.title
+            cell.commentsLabel.text = currentPost.commentsCountText
+            cell.accessoryType = currentPost.canOpen ? .disclosureIndicator : .none
+            cell.thumbnailImageView.image = viewModel.getPostThumbnail(currentPost.id)
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let index = indexPath.row
-        guard viewModel.postsDisplayItems.count > index, let fullImageViewModel = viewModel.fullImageViewModel(viewModel.postsDisplayItems[index].id) else {
+        guard viewModel.postsDisplayItemsCount > index, let postDisplayItem = viewModel.postDiplayItem(atIndex: index), let fullImageViewModel = viewModel.fullImageViewModel(postDisplayItem.id) else {
             return
         }
         let fullImageViewController = UIStoryboard(name: Constants.StoryboardId.FullImage, bundle: Bundle.main).instantiateInitialViewController() as! FullImageViewController
@@ -112,7 +113,7 @@ class PostsListTableViewController: UITableViewController {
 extension PostsListTableViewController: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.last?.row == viewModel.postsDisplayItems.count {
+        if indexPaths.last?.row == viewModel.postsDisplayItemsCount {
             viewModel.getTopPosts()
         }
     }

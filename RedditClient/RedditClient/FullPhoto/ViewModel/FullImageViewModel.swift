@@ -55,7 +55,10 @@ class RedditFullImageViewModel: NSObject, FullImageViewModel {
     }
     
     func getImage() {
-        guard let cachedImage = imageDownloader.cachedImage(url: imageURL) else {
+        if let cachedImage = imageDownloader.cachedImage(url: imageURL) {
+            currentImage = cachedImage
+            savingToPhotosEnabled = true
+        } else {
             loadStatusChanged?(true)
             imageDownloader.downloadImage(url: imageURL) { [weak self] imageFromRemote, url in
                 let newImage = imageFromRemote ?? UIImage(named: RedditFullImageViewModel.defaultImageName)!
@@ -64,10 +67,7 @@ class RedditFullImageViewModel: NSObject, FullImageViewModel {
                 self?.savingToPhotosEnabled = imageFromRemote != nil
                 self?.loadStatusChanged?(false)
             }
-            return
         }
-        currentImage = cachedImage
-        savingToPhotosEnabled = true
     }
     
     func saveCurrentImageToPhotos() {
