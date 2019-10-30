@@ -52,8 +52,11 @@ struct RedditPost: Post, Decodable {
         self.dateCreated = Date(timeIntervalSince1970: timeUtc)
         self.hidden = try dataContainer.decode(Bool.self, forKey: .hidden)
         self.commentsCount = (try? dataContainer.decode(Int.self, forKey: .numComments)) ?? 0
-        let urlPath = try dataContainer.decode(String.self, forKey: .thumbnail)
-        self.thumbnailURL = URL(string: urlPath.removingXMLPercentEncoding())
+        if let urlPath = try? dataContainer.decode(String.self, forKey: .thumbnail) {
+            self.thumbnailURL = URL(string: urlPath.removingXMLPercentEncoding())
+        } else {
+            self.thumbnailURL = nil
+        }
         self.preview = try? dataContainer.decode(Preview.self, forKey: .preview)
         self.fullImageURL = preview?.images?.first?.source?.url // Pick first image as main post image
     }
